@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Robert View</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      var marker;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: {{ location_latitude }}, lng: {{ location_longtitue }} },
+          zoom: 18,
+          scaleControl: true
+        });
+        //Add listener
+        map.addListener('click', function(event) {
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+            console.log( latitude + ', ' + longitude );
+            var location = {lat: latitude, lng: longitude};
+
+            if(marker != null){
+                marker.setMap(null);
+                console.log( "PIMAP: marker setMap" );
+            }
+            marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            jQuery.ajax({
+                url: '/updatelocation?latitude='+latitude+'&longitude=' + longitude,
+                success: function (result) {
+                    if (result.isOk == false) console.log('PIMAP:' + result.message);
+                },
+                async: false
+            });
+        }); //end addListener
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={your_google_map_api_token}&callback=initMap"
+    async defer></script>
+  </body>
+</html>
