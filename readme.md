@@ -10,11 +10,12 @@ OSX, iOS and Xcode, using debug mode can simulate location in iOS, using GPX fil
 3. Install `pip`, you are refer https://pip.pypa.io/en/stable/installing/.
 4. run `sudo pip install flask`.
 5. run `sudo pip install apscheduler`.
-6. run `export FLASK_APP=\{your wolfberry folder path}\app.py`
+6. run `export FLASK_APP=/{your wolfberry folder path}/app.py`
 7. run `flask run`
 8. open browser in `http://127.0.0.1:5000/`
 9. of course, in xcode debug mode, and add `IorP.gpx` file into the simulate list.
-10. have fun.
+10. Turn on terminal/iterm and "script editor" in "Accessibility" of "Security & Privacy" of "System Perferences". 
+11. have fun.
 
 ## Hints
 
